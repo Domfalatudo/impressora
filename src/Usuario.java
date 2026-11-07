@@ -1,29 +1,27 @@
-package src;
-
 import java.util.Scanner;
 
 public class Usuario {
-    String usuario = "XML";
-    String senha = "123";
+    private final String nome = "borbadom";
+    private final String senha = "gg";
 
-    void cadastrarUsuario(Scanner sc) {
-        int tentativas = 3;
-        String usuarioDigitado;
-        String senhaDigitada;
+    public void fazerLogin(Scanner scanner) {
+        for (int tentativa = 1; tentativa <= 3; tentativa++) {
+            System.out.print("Usuário: ");
+            String nomeDigitado = scanner.nextLine();
+            System.out.print("Senha: ");
+            String senhaDigitada = scanner.nextLine();
 
-        do {
-            System.out.print("Digite o usuário: ");
-            usuarioDigitado = sc.nextLine();
-            System.out.print("Digite a senha: ");
-            senhaDigitada = sc.nextLine();
-
-            if (usuarioDigitado.equals(usuario) && senhaDigitada.equals(senha)) {
-                System.out.println("Sistema liberado");
-            } else {
-                tentativas -= 1;
-                System.out.println("Tentativas restantes = " + tentativas);
+            if (nome.equals(nomeDigitado) && senha.equals(senhaDigitada)) {
+                System.out.println("Login realizado com sucesso!");
+                return;
             }
 
-        } while(tentativas > 0 && !(usuarioDigitado.equals(usuario) && senhaDigitada.equals(senha)));
+            int restantes = 3 - tentativa;
+            System.out.println("Usuário ou senha inválidos. Tentativas restantes: " + restantes);
+        }
+
+        System.out.println("Você excedeu o número de tentativas. Encerrando o programa.");
+        scanner.close();
+        System.exit(0);
     }
 }
