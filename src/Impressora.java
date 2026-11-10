@@ -60,24 +60,28 @@ public class Impressora {
     }
 
     public void abrirConexao() {
-        try {
-            int retorno = ImpressoraDLL.INSTANCE.AbreConexaoImpressora(tipo, modelo, conexao, parametro);
-            if (retorno == 0) {
-                conexaoAberta = true;
-                System.out.println("Conexão aberta com sucesso.");
-            } else {
+        if (conexaoAberta == false) {
+            try {
+                int retorno = ImpressoraDLL.INSTANCE.AbreConexaoImpressora(tipo, modelo, conexao, parametro);
+                if (retorno == 0) {
+                    conexaoAberta = true;
+                    System.out.println("Conexão aberta com sucesso.");
+                } else {
+                    conexaoAberta = false;
+                    System.out.println("Erro ao abrir a conexão. Código: " + retorno);
+                }
+            } catch (UnsatisfiedLinkError e) {
                 conexaoAberta = false;
-                System.out.println("Erro ao abrir a conexão. Código: " + retorno);
+                System.out.println("Não foi possível carregar a DLL da impressora: " + e.getMessage());
             }
-        } catch (UnsatisfiedLinkError e) {
-            conexaoAberta = false;
-            System.out.println("Não foi possível carregar a DLL da impressora: " + e.getMessage());
+        } else {
+            System.out.println("Ja há uma conexão em aberto.");
         }
     }
 
     public void fecharConexao() {
         if (!conexaoAberta) {
-            System.out.println("Conexão fechada.");
+            System.out.println("Conexão ja está fechada.");
             return;
         }
 
@@ -102,9 +106,9 @@ public class Impressora {
         System.out.print("Texto para imprimir: ");
         String texto = scanner.nextLine();
 
-        int posicao = solicitarInteiro(scanner, "Posição (0=esquerda, 1=centro, 2=direita): ", 0, 2);
-        int estilo = solicitarInteiro(scanner, "Estilo (0=normal, 1=fonte B, 2=sublinhado, 4=invertido, 8=negrito): ", 0, 15);
-        int tamanho = solicitarInteiro(scanner, "Tamanho da fonte (0=normal, 1 a 7=maior): ", 0, 7);
+        int posicao = 1;
+        int estilo = 4;
+        int tamanho = 0;
 
         try {
             int retorno = ImpressoraDLL.INSTANCE.ImpressaoTexto(texto, posicao, estilo, tamanho);
@@ -112,6 +116,7 @@ public class Impressora {
                 System.out.println("Erro na impressão do texto. Código: " + retorno);
             } else {
                 System.out.println("Texto impresso com sucesso. Dados enviados: " + retorno);
+                ImpressoraDLL.INSTANCE.AvancaPapel(10);
             }
         } catch (UnsatisfiedLinkError e) {
             System.out.println("Não foi possível carregar a DLL da impressora: " + e.getMessage());
@@ -125,8 +130,8 @@ public class Impressora {
 
         System.out.print("Conteúdo do QR Code: ");
         String dados = scanner.nextLine();
-        int tamanho = solicitarInteiro(scanner, "Tamanho do QR Code (1 a 6): ", 1, 6);
-        int nivelCorrecao = solicitarInteiro(scanner, "Nível de correção (1 a 4): ", 1, 4);
+        int tamanho = 6;
+        int nivelCorrecao = 4;
 
         try {
             int retorno = ImpressoraDLL.INSTANCE.ImpressaoQRCode(dados, tamanho, nivelCorrecao);
@@ -145,12 +150,13 @@ public class Impressora {
             return;
         }
 
-        int tipoCodigo = solicitarInteiro(scanner, "Tipo do código (0=UPC-A, 2=EAN13, 3=EAN8, 4=CODE39, 8=CODE128): ", 0, 8);
+        int tipoCodigo = 8;
         System.out.print("Dados do código de barras: ");
         String dados = scanner.nextLine();
-        int altura = solicitarInteiro(scanner, "Altura do código (1 a 255): ", 1, 255);
-        int largura = solicitarInteiro(scanner, "Largura do código (1 a 6): ", 1, 6);
-        int hri = solicitarInteiro(scanner, "HRI (1=acima, 2=abaixo, 3=ambos, 4=não imprime): ", 1, 4);
+
+        int altura = 100;
+        int largura = 2;
+        int hri = 3;
 
         try {
             int retorno = ImpressoraDLL.INSTANCE.ImpressaoCodigoBarras(tipoCodigo, dados, altura, largura, hri);
@@ -212,7 +218,7 @@ public class Impressora {
         }
 
         try {
-            int retorno = ImpressoraDLL.INSTANCE.AbreGaveta(0, 1, 5);
+            int retorno = ImpressoraDLL.INSTANCE.AbreGaveta(1, 5, 10);
             if (retorno == 0) {
                 System.out.println("Gaveta aberta com sucesso.");
             } else {
@@ -229,8 +235,8 @@ public class Impressora {
         }
 
         int qtd = solicitarInteiro(scanner, "Quantidade de bips (1 a 63): ", 1, 63);
-        int tempoInicio = solicitarInteiro(scanner, "Tempo de início (ms): ", 1, 255);
-        int tempoFim = solicitarInteiro(scanner, "Tempo entre bips (1 a 25): ", 1, 25);
+        int tempoInicio = 5;
+        int tempoFim = 2;
 
         try {
             int retorno = ImpressoraDLL.INSTANCE.SinalSonoro(qtd, tempoInicio, tempoFim);
@@ -249,7 +255,7 @@ public class Impressora {
             return;
         }
 
-        int linhas = solicitarInteiro(scanner, "Quantas linhas deseja avançar: ", 1, 100);
+        int linhas = solicitarInteiro(scanner, "Quantas linhas deseja avançar (1 a 100): ", 1, 100);
 
         try {
             int retorno = ImpressoraDLL.INSTANCE.AvancaPapel(linhas);
@@ -304,7 +310,7 @@ public class Impressora {
 
     private boolean validarConexao() {
         if (!conexaoAberta) {
-            System.out.println("Conexão fechada.");
+            System.out.println("Conexão está fechada.");
             return false;
         }
         return true;

@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
@@ -7,9 +8,17 @@ public class Main {
         Impressora impressora = new Impressora();
 
         System.out.println("=== Sistema de Controle da Impressora Elgin ===");
-        usuario.fazerLogin(scanner);
+
+        if (usuario.fazerLogin(scanner) != 0) {
+            return;
+        }
 
         while (true) {
+            try {
+
+            } catch (InputMismatchException e){
+
+            }
             System.out.println("\n=== Menu ===");
             System.out.println("1 - Configurar conexão");
             System.out.println("2 - Abrir conexão");
@@ -28,7 +37,8 @@ public class Main {
             System.out.print("Escolha uma opção: ");
 
             try {
-                int opcao = Integer.parseInt(scanner.nextLine());
+                int opcao = scanner.nextInt();
+                scanner.nextLine();
 
                 switch (opcao) {
                     case 1:
@@ -73,7 +83,6 @@ public class Main {
                     case 0:
                         impressora.fecharConexao();
                         System.out.println("Programa encerrado. \n Encerrando a Conexão com a impressora...");
-                        scanner.close();
                         return;
                     default:
                         System.out.println("Opção inválida. Tente novamente.");
@@ -81,6 +90,8 @@ public class Main {
                 }
             } catch (NumberFormatException e) {
                 System.out.println("Entrada inválida. Digite apenas números.");
+            } catch (InputMismatchException e) {
+                System.out.println("Entrada inválida. Não digite texto.");
             }
         }
     }

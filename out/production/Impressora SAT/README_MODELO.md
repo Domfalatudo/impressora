@@ -1,4 +1,4 @@
-# 🖨️ Sistema de Controle de src.Impressora Elgin
+# 🖨️ Sistema de Controle de Impressora Elgin
 ### *(Troque pelo nome do seu projeto)*
 ---
 
@@ -15,7 +15,7 @@ Exemplo: Este projeto foi desenvolvido por alunos para se comunicar com uma impr
 - **IntelliJ IDEA** *(ou a IDE que usou)*
 - **JNA 5.15.0** (comunicação com a DLL)
 - **DLL E1_Impressora01** (SDK da Elgin)
-- **src.Impressora Elgin i8 ou i9** *(informe qual você usou nos testes)*
+- **Impressora Elgin i8 ou i9** *(informe qual você usou nos testes)*
 
 ---
 
@@ -25,9 +25,9 @@ Exemplo: Este projeto foi desenvolvido por alunos para se comunicar com uma impr
 
 ```
 /src                      → Código-fonte
-   src.Main.java              → Inicia o programa
+   Main.java              → Inicia o programa
    (suas classes aqui)    → Descreva o papel de cada uma
-/Bibliotecas E1 src.Impressora → DLLs da Elgin (x64 e x86)
+/Bibliotecas E1 Impressora → DLLs da Elgin (x64 e x86)
 /libs Java                → jna-5.15.0.jar
 ```
 
@@ -46,7 +46,7 @@ Exemplo: Este projeto foi desenvolvido por alunos para se comunicar com uma impr
 1. **File → Open** e escolha a pasta extraída.
 2. Em **File → Project Structure → Libraries**, confirme que o `jna-5.15.0.jar` está adicionado.
 3. Conecte e ligue a impressora.
-4. Abra `src.Main.java` e clique em ▶️ **Run**.
+4. Abra `Main.java` e clique em ▶️ **Run**.
 
 ---
 
