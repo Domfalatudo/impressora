@@ -1,8 +1,10 @@
+package src;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
+    static void main() {
         Scanner scanner = new Scanner(System.in);
         Usuario usuario = new Usuario();
         Impressora impressora = new Impressora();
@@ -14,11 +16,6 @@ public class Main {
         }
 
         while (true) {
-            try {
-
-            } catch (InputMismatchException e){
-
-            }
             System.out.println("\n=== Menu ===");
             System.out.println("1 - Configurar conexão");
             System.out.println("2 - Abrir conexão");
@@ -92,6 +89,7 @@ public class Main {
                 System.out.println("Entrada inválida. Digite apenas números.");
             } catch (InputMismatchException e) {
                 System.out.println("Entrada inválida. Não digite texto.");
+                scanner.nextLine();
             }
         }
     }

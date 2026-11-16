@@ -68,7 +68,7 @@ A aplicação permite até 3 tentativas antes de encerrar.
 
 - Dominic Enzo Godinho Ferreira
 - Samuel Oliveira Borba
-- Nathan
+- Heitor Frederico de Lima Girola
 
 ## Observações
 
