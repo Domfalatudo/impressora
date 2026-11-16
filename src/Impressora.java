@@ -1,5 +1,3 @@
-package src;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -152,8 +150,14 @@ public class Impressora {
         }
 
         int tipoCodigo = 8;
-        System.out.print("Dados do código de barras: ");
-        String dados = scanner.nextLine();
+        String dados;
+        do {
+            System.out.print("Dados do código de barras CODE 128 (ex.: {A012345678912): ");
+            dados = scanner.nextLine().trim();
+            if (dados.isEmpty()) {
+                System.out.println("Os dados do código de barras não podem ficar vazios.");
+            }
+        } while (dados.isEmpty());
 
         int altura = 100;
         int largura = 2;
@@ -162,9 +166,20 @@ public class Impressora {
         try {
             int retorno = ImpressoraDLL.INSTANCE.ImpressaoCodigoBarras(tipoCodigo, dados, altura, largura, hri);
             if (retorno == 0) {
-                ImpressoraDLL.INSTANCE.AvancaPapel(3);
-                ImpressoraDLL.INSTANCE.Corte(2);
                 System.out.println("Código de barras impresso com sucesso.");
+                int retornoAvanco = ImpressoraDLL.INSTANCE.AvancaPapel(3);
+                if (retornoAvanco == 0) {
+                    System.out.println("Papel avançado com sucesso.");
+                } else {
+                    System.out.println("Erro ao avançar o papel após o código de barras. Código: " + retornoAvanco);
+                }
+
+                int retornoCorte = ImpressoraDLL.INSTANCE.Corte(2);
+                if (retornoCorte == 0) {
+                    System.out.println("Papel cortado com sucesso.");
+                } else {
+                    System.out.println("Erro ao cortar o papel após o código de barras. Código: " + retornoCorte);
+                }
             } else {
                 System.out.println("Erro ao imprimir código de barras. Código: " + retorno);
             }
