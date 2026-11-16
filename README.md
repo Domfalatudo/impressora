@@ -1,9 +1,5 @@
 <div align="center">
 
-<picture>
-  <img alt="Controle de Impressora Elgin" src="assets/banner.svg" width="100%">
-</picture>
-
 <br>
 
 [![Java](https://img.shields.io/badge/Java-21-0d1117?style=for-the-badge&logo=openjdk&logoColor=f89820&labelColor=161b22)](https://openjdk.org/projects/jdk/21/)
