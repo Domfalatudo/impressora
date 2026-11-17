@@ -144,27 +144,20 @@ public class Impressora {
         }
     }
 
-    public void imprimirCodigoBarras(Scanner scanner) {
+    public void imprimirCodigoBarras() {
         if (validarConexao()) {
             return;
         }
 
         int tipoCodigo = 8;
-        String dados;
-        do {
-            System.out.print("Dados do código de barras CODE 128 (ex.: {A012345678912): ");
-            dados = scanner.nextLine().trim();
-            if (dados.isEmpty()) {
-                System.out.println("Os dados do código de barras não podem ficar vazios.");
-            }
-        } while (dados.isEmpty());
+        String codigo = "{A012345678912";
 
         int altura = 100;
         int largura = 2;
         int hri = 3;
 
         try {
-            int retorno = ImpressoraDLL.INSTANCE.ImpressaoCodigoBarras(tipoCodigo, dados, altura, largura, hri);
+            int retorno = ImpressoraDLL.INSTANCE.ImpressaoCodigoBarras(tipoCodigo, codigo, altura, largura, hri);
             if (retorno == 0) {
                 System.out.println("Código de barras impresso com sucesso.");
                 int retornoAvanco = ImpressoraDLL.INSTANCE.AvancaPapel(3);

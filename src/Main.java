@@ -52,7 +52,7 @@ public class Main {
                         impressora.imprimirQRCode(scanner);
                         break;
                     case 6:
-                        impressora.imprimirCodigoBarras(scanner);
+                        impressora.imprimirCodigoBarras();
                         break;
                     case 7:
                         impressora.imprimirXmlSat(scanner);
