@@ -7,7 +7,7 @@ public class Main {
         Usuario usuario = new Usuario();
         Impressora impressora = new Impressora();
 
-        System.out.println("=== Sistema de Controle da Impressora Elgin ===");
+        System.out.println("=== Sistema de Controle ===");
 
         if (usuario.fazerLogin(scanner) != 0) {
             return;

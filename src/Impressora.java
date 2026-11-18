@@ -186,7 +186,7 @@ public class Impressora {
             return;
         }
 
-        String dados = lerConteudoXml(scanner, "Nome do arquivo XML SAT (ex.: XMLSAT.xml): ");
+        String dados = "XMLSAT.xml";
 
         try {
             int retorno = ImpressoraDLL.INSTANCE.ImprimeXMLSAT(dados, 0);
@@ -207,7 +207,7 @@ public class Impressora {
             return;
         }
 
-        String dados = lerConteudoXml(scanner, "Nome do arquivo de cancelamento SAT (ex.: CANC_SAT.xml): ");
+        String dados = "CANC_SAT.xml";
         String assQRCode = "Q5DLkpdRijIRGY6YSSNsTWK1TztHL1vD0V1Jc4spo/CEUqICEb9SFy82ym8EhBRZjbh3btsZhF+sjHqEMR159i4agru9x6KsepK/q0"
                 + "E2e5xlU5cv3m1woYfgHyOkWDNcSdMsS6bBh2Bpq6s89yJ9Q6qh/J8YHi306ce9Tqb/drKvN2XdE5noRSS32TAWuaQEVd7u+TrvXlOQ"
                 + "sE3fHR1D5f1saUwQLPSdIv01NF6Ny7jZwjCwv1uNDgGZONJdlTJ6p0ccqnZvuE70aHOI09elpjEO6Cd+orI7XHHrFCwhFhAcbalc+Z"
@@ -216,6 +216,7 @@ public class Impressora {
         try {
             int retorno = ImpressoraDLL.INSTANCE.ImprimeXMLCancelamentoSAT(dados, assQRCode, 0);
             if (retorno == 0) {
+                ImpressoraDLL.INSTANCE.Corte(2);
                 System.out.println("XML de cancelamento SAT impresso com sucesso.");
             } else {
                 System.out.println("Erro ao imprimir XML de cancelamento. Código: " + retorno);
