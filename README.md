@@ -1,142 +1,123 @@
 <div align="center">
 
-<br>
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0d0d0d,100:1a1a1a&height=200&section=header&text=Sistema%20de%20Controle%20de%20Impressora%20Elgin&fontSize=26&fontColor=ffffff&animation=fadeIn&fontAlignY=38" width="100%"/>
 
-[![Java](https://img.shields.io/badge/Java-21-0d1117?style=for-the-badge&logo=openjdk&logoColor=f89820&labelColor=161b22)](https://openjdk.org/projects/jdk/21/)
-[![JNA](https://img.shields.io/badge/JNA-5.15.0-0d1117?style=for-the-badge&logoColor=58a6ff&labelColor=161b22)](https://github.com/java-native-access/jna)
-[![Elgin](https://img.shields.io/badge/Elgin-i8%20%7C%20i9-0d1117?style=for-the-badge&labelColor=161b22&color=3fb950)](#)
-[![IDE](https://img.shields.io/badge/IntelliJ%20IDEA-ready-0d1117?style=for-the-badge&logo=intellijidea&logoColor=white&labelColor=161b22)](#)
+<img src="https://readme-typing-svg.demolab.com/?font=Fira+Code&weight=600&size=18&duration=3000&pause=1000&color=FFFFFF&background=00000000&center=true&vCenter=true&width=700&lines=Login+seguro+%2B+menu+com+13+opera%C3%A7%C3%B5es;Comunica%C3%A7%C3%A3o+via+DLL+JNA+com+impressoras+Elgin+i8%2Fi9;Trabalho+de+Programa%C3%A7%C3%A3o+Orientada+a+Objetos" alt="Typing SVG"/>
 
-<br>
-
-[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=20&pause=1200&color=3FB950&center=true&vCenter=true&width=720&lines=Sistema+de+controle+para+impressoras+t%C3%A9rmicas;Login%2C+menu+interativo+e+impress%C3%A3o+SAT;Java+21+%2B+JNA+%2B+E1_Impressora01.dll)](https://git.io/typing-svg)
+![Java](https://img.shields.io/badge/Java-17-000000?style=for-the-badge&logo=openjdk&logoColor=white)
+![IntelliJ IDEA](https://img.shields.io/badge/IntelliJ%20IDEA-000000?style=for-the-badge&logo=intellijidea&logoColor=white)
+![JNA](https://img.shields.io/badge/JNA-5.15.0-1a1a1a?style=for-the-badge)
+![Elgin](https://img.shields.io/badge/Elgin-i8%2Fi9-1a1a1a?style=for-the-badge)
 
 </div>
 
 ---
 
-## Visão geral
+## Sobre o Projeto
 
-```mermaid
-flowchart LR
-    U[Usuario] --> M[Main]
-    M --> I[Impressora]
-    I --> D[ImpressoraDLL]
-    D -->|JNA| L[(E1_Impressora01.dll)]
-    L -->|USB / Serial| P[[Impressora Elgin]]
+Este projeto foi desenvolvido para se comunicar com uma impressora térmica **Elgin i8/i9** usando a biblioteca `E1_Impressora01.dll`. O sistema tem login com no máximo 3 tentativas e um menu com 13 operações de impressão e controle da impressora. Faz parte da disciplina de **Programação Orientada a Objetos**.
 
-    style M fill:#161b22,stroke:#58a6ff,color:#e6edf3
-    style I fill:#161b22,stroke:#3fb950,color:#e6edf3
-    style D fill:#161b22,stroke:#3fb950,color:#e6edf3
-    style L fill:#0d1117,stroke:#f78166,color:#e6edf3
-    style P fill:#0d1117,stroke:#58a6ff,color:#e6edf3
-```
+---
 
-O sistema oferece login com controle de tentativas, menu interativo no console, configuração da conexão e diversas operações de impressão: texto, QR Code, código de barras, XML SAT, XML de cancelamento e acionamento da gaveta. A lógica foi separada em classes para facilitar a manutenção e evitar repetição de código.
+## Tecnologias Utilizadas
 
-## Stack
+- **Java 17**
+- **IntelliJ IDEA**
+- **JNA 5.15.0** (comunicação com a DLL)
+- **DLL E1_Impressora01** (SDK da Elgin)
+- **Impressora Elgin i8 ou i9**
 
-| Tecnologia | Versão | Papel |
-|:---:|:---:|---|
-| Java | 21 | Linguagem principal |
-| JNA | 5.15.0 | Ponte entre Java e a DLL nativa |
-| E1_Impressora01.dll | x86 / x64 | Biblioteca oficial da Elgin |
-| IntelliJ IDEA / VS Code | qualquer | Ambiente de desenvolvimento |
+---
 
-## Estrutura
+## Estrutura do Projeto
 
 ```
-.
-├── src/
-│   ├── Main.java
-│   ├── Usuario.java
-│   ├── Impressora.java
-│   └── ImpressoraDLL.java
-├── Bibliotecas E1 Impressora/   # DLLs x86 e x64
-├── libs Java/
-│   └── jna-5.15.0.jar
-├── XMLSAT.xml
-├── CANC_SAT.xml
-└── .gitignore
+/src
+   Main.java        → Login, menu e leitura dos dados digitados
+   Usuario.java      → Guarda login e senha e confere se estão certos
+   Impressora.java   → Guarda os dados da conexão e tem um método para cada comando da DLL
+   ImpressoraDLL.java → Interface JNA fornecida (não alterada)
+/Bibliotecas E1 Impressora → DLLs da Elgin (x64 e x86)
+/libs Java                → jna-5.15.0.jar
+XMLSAT.xml                → Cupom de venda de exemplo
+CANC_SAT.xml               → Cupom de cancelamento de exemplo
 ```
 
-<details>
-<summary><b>Instalação e execução</b></summary>
+---
 
-<br>
+## Instalação e Execução
 
-1. Abra a pasta do projeto no **IntelliJ IDEA** ou no **VS Code**.
-2. No VS Code, confirme a extensão **Extension Pack for Java**. O `.vscode/settings.json` já define `src/` como código-fonte e adiciona os JARs de `libs Java/` ao classpath.
-3. No IntelliJ IDEA, confirme que `jna-5.15.0.jar` está configurado como biblioteca do projeto.
-4. Garanta que a pasta `Bibliotecas E1 Impressora` esteja na raiz do projeto.
-5. Verifique se o diretório de trabalho aponta para a raiz do projeto.
-6. Compile e execute a classe `Main` a partir de `src/`.
+### 1. Baixar o projeto
+1. Acesse o repositório no GitHub.
+2. Clique em **Code → Download ZIP**.
+3. Extraia o arquivo.
 
-</details>
+### 2. Abrir no IntelliJ IDEA
+1. **File → Open** e escolha a pasta extraída.
+2. Em **File → Project Structure → Libraries**, confirme que o `jna-5.15.0.jar` está adicionado.
+3. Em **Run → Edit Configurations**, confirme que o *Working directory* é a pasta principal do projeto (onde está a pasta `Bibliotecas E1 Impressora`).
+4. Conecte e ligue a impressora.
+5. Abra `Main.java` e clique em **Run**.
 
-<details>
-<summary><b>Acesso de teste</b></summary>
+---
 
-<br>
+## Login
 
-| Campo | Valor |
-|:---:|:---:|
-| Usuário | `borbadom` |
-| Senha | `gg` |
+- Usuário: `borbadom`
+- Senha: `gg`
+- Máximo de 3 tentativas
 
-O sistema permite até **3 tentativas** antes de encerrar.
+---
 
-</details>
+## Funcionalidades do Menu
 
-<details open>
-<summary><b>Menu de funcionalidades</b></summary>
+| Opção | O que faz |
+|---|---|
+| 1 | Configurar conexão (tipo, modelo, porta, parâmetro) |
+| 2 | Abrir conexão com a impressora |
+| 3 | Fechar conexão com a impressora |
+| 4 | Imprimir texto |
+| 5 | Imprimir QR Code |
+| 6 | Imprimir código de barras |
+| 7 | Imprimir XML SAT (cupom de venda) |
+| 8 | Imprimir XML de cancelamento SAT |
+| 9 | Abrir gaveta |
+| 10 | Sinal sonoro (bip) |
+| 11 | Avançar papel |
+| 12 | Consultar status da impressora (gaveta, tampa, papel ou geral) |
+| 13 | Cortar papel |
+| 0 | Sair |
 
-<br>
+Se a conexão não estiver aberta, as opções de 3 a 13 mostram o aviso "Conexão fechada. Abra a conexão antes." e voltam ao menu, sem pedir nenhum dado.
 
-| Opção | Função |
-|:---:|---|
-| `1` | Configurar conexão |
-| `2` | Abrir conexão |
-| `3` | Fechar conexão |
-| `4` | Imprimir texto |
-| `5` | Imprimir QR Code |
-| `6` | Imprimir código de barras |
-| `7` | Imprimir XML SAT |
-| `8` | Imprimir XML de cancelamento SAT |
-| `9` | Abrir gaveta |
-| `10` | Emitir sinal sonoro |
-| `11` | Avançar papel |
-| `12` | Verificar status da impressora |
-| `13` | Cortar papel |
-| `0` | Sair |
+---
 
-</details>
+## Testes Realizados
 
-<details>
-<summary><b>Testes realizados</b></summary>
+- Login com senha errada 3 vezes seguidas (bloqueio do programa).
+- Login correto na primeira e na segunda tentativa.
+- Tentativa de imprimir com a conexão fechada (mensagem de aviso).
+- Entrada de letras em um campo numérico (mensagem de erro sem travar o programa).
+- Abertura e fechamento de conexão, impressão de texto, QR Code, código de barras, bip, abertura de gaveta e impressão dos XMLs de exemplo, testados diretamente na impressora.
 
-<br>
+---
 
-- Login com usuário e senha válidos
-- Login com senha incorreta e contagem de tentativas
-- Tentativa de impressão com conexão fechada
-- Validação de entradas numéricas inválidas
-- Chamada de conexão e verificação do retorno da DLL
-- Impressão de texto, QR Code, XML SAT e XML de cancelamento
+## Documentação Adicional
 
-</details>
+- Manual da impressora Elgin
+- Documentação do SDK E1_Impressora: https://elgindevelopercommunity.github.io/group___m1.html
+
+---
 
 ## Autores
 
 | | |
-|:---:|:---:|
+|---|---|
 | **Dominic Enzo Godinho Ferreira** | **Samuel Oliveira Borba** |
 | **Heitor Frederico de Lima Girola** | |
 
----
-
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:161b22,100:0d1117&height=120&section=footer" width="100%" alt="footer">
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0d0d0d,100:1a1a1a&height=120&section=footer" width="100%"/>
 
 </div>
