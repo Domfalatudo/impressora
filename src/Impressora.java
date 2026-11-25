@@ -188,10 +188,15 @@ public class Impressora {
             return;
         }
 
-        String dados = "XMLSAT.xml";
+        Path caminho = Path.of("C:\\Users\\dominic_enzo\\Documents\\GitHub\\impressora\\src\\XMLSAT.xml");
 
         try {
-            int retorno = ImpressoraDLL.INSTANCE.ImprimeXMLSAT(dados, 0);
+            if (!Files.exists(caminho) || Files.size(caminho) == 0) {
+                System.out.println("Arquivo XML não encontrado ou vazio: " + caminho);
+                return;
+            }
+
+            int retorno = ImpressoraDLL.INSTANCE.ImprimeXMLSAT(caminho.toString(), 0);
             if (retorno == 0) {
                 ImpressoraDLL.INSTANCE.AvancaPapel(3);
                 ImpressoraDLL.INSTANCE.Corte(2);
@@ -199,6 +204,8 @@ public class Impressora {
             } else {
                 System.out.println("Erro ao imprimir XML SAT. Código: " + retorno);
             }
+        } catch (IOException e) {
+            System.out.println("Erro ao acessar o arquivo XML: " + e.getMessage());
         } catch (UnsatisfiedLinkError e) {
             System.out.println("Não foi possível carregar a DLL da impressora: " + e.getMessage());
         }
@@ -209,20 +216,28 @@ public class Impressora {
             return;
         }
 
-        String dados = "CANC_SAT.xml";
-        String assQRCode = "Q5DLkpdRijIRGY6YSSNsTWK1TztHL1vD0V1Jc4spo/CEUqICEb9SFy82ym8EhBRZjbh3btsZhF+sjHqEMR159i4agru9x6KsepK/q0"
-                + "E2e5xlU5cv3m1woYfgHyOkWDNcSdMsS6bBh2Bpq6s89yJ9Q6qh/J8YHi306ce9Tqb/drKvN2XdE5noRSS32TAWuaQEVd7u+TrvXlOQ"
-                + "sE3fHR1D5f1saUwQLPSdIv01NF6Ny7jZwjCwv1uNDgGZONJdlTJ6p0ccqnZvuE70aHOI09elpjEO6Cd+orI7XHHrFCwhFhAcbalc+Z"
-                + "fO5b/+vkyAHS6CYVFCDtYR9Hi5qgdk31v23w==";
+        Path caminho = Path.of("C:\\Users\\dominic_enzo\\Documents\\GitHub\\impressora\\src\\CANC_SAT.xml");
 
         try {
-            int retorno = ImpressoraDLL.INSTANCE.ImprimeXMLCancelamentoSAT(dados, assQRCode, 0);
+            if (!Files.exists(caminho) || Files.size(caminho) == 0) {
+                System.out.println("Arquivo XML de cancelamento não encontrado ou vazio: " + caminho);
+                return;
+            }
+
+            String assQRCode = "Q5DLkpdRijIRGY6YSSNsTWK1TztHL1vD0V1Jc4spo/CEUqICEb9SFy82ym8EhBRZjbh3btsZhF+sjHqEMR159i4agru9x6KsepK/q0"
+                    + "E2e5xlU5cv3m1woYfgHyOkWDNcSdMsS6bBh2Bpq6s89yJ9Q6qh/J8YHi306ce9Tqb/drKvN2XdE5noRSS32TAWuaQEVd7u+TrvXlOQ"
+                    + "sE3fHR1D5f1saUwQLPSdIv01NF6Ny7jZwjCwv1uNDgGZONJdlTJ6p0ccqnZvuE70aHOI09elpjEO6Cd+orI7XHHrFCwhFhAcbalc+Z"
+                    + "fO5b/+vkyAHS6CYVFCDtYR9Hi5qgdk31v23w==";
+
+            int retorno = ImpressoraDLL.INSTANCE.ImprimeXMLCancelamentoSAT(caminho.toString(), assQRCode, 0);
             if (retorno == 0) {
                 ImpressoraDLL.INSTANCE.Corte(2);
                 System.out.println("XML de cancelamento SAT impresso com sucesso.");
             } else {
                 System.out.println("Erro ao imprimir XML de cancelamento. Código: " + retorno);
             }
+        } catch (IOException e) {
+            System.out.println("Erro ao acessar o arquivo XML: " + e.getMessage());
         } catch (UnsatisfiedLinkError e) {
             System.out.println("Não foi possível carregar a DLL da impressora: " + e.getMessage());
         }

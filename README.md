@@ -110,11 +110,9 @@ Se a conexão não estiver aberta, as opções de 3 a 13 mostram o aviso "Conex�
 ---
 
 ## Autores
-
-| | |
-|---|---|
-| **Dominic Enzo Godinho Ferreira** | **Samuel Oliveira Borba** |
-| **Heitor Frederico de Lima Girola** | |
+| **Dominic Enzo Godinho Ferreira** |
+|**Samuel Oliveira Borba** |
+| **Heitor Frederico de Lima Girola** | 
 
 <div align="center">
 
