@@ -188,15 +188,17 @@ public class Impressora {
             return;
         }
 
-        Path caminho = Path.of("C:\\Users\\dominic_enzo\\Documents\\GitHub\\impressora\\src\\XMLSAT.xml");
+        Path caminho = Path.of("src", "XMLSAT.xml");
 
         try {
             if (!Files.exists(caminho) || Files.size(caminho) == 0) {
-                System.out.println("Arquivo XML não encontrado ou vazio: " + caminho);
+                System.out.println("Arquivo XML não encontrado ou vazio: " + caminho.toAbsolutePath());
                 return;
             }
 
-            int retorno = ImpressoraDLL.INSTANCE.ImprimeXMLSAT(caminho.toString(), 0);
+            String dadosXml = "path=" + caminho.toAbsolutePath();
+            int retorno = ImpressoraDLL.INSTANCE.ImprimeXMLSAT(dadosXml, 0);
+
             if (retorno == 0) {
                 ImpressoraDLL.INSTANCE.AvancaPapel(3);
                 ImpressoraDLL.INSTANCE.Corte(2);
@@ -216,11 +218,11 @@ public class Impressora {
             return;
         }
 
-        Path caminho = Path.of("C:\\Users\\dominic_enzo\\Documents\\GitHub\\impressora\\src\\CANC_SAT.xml");
+        Path caminho = Path.of("src", "CANC_SAT.xml");
 
         try {
             if (!Files.exists(caminho) || Files.size(caminho) == 0) {
-                System.out.println("Arquivo XML de cancelamento não encontrado ou vazio: " + caminho);
+                System.out.println("Arquivo XML de cancelamento não encontrado ou vazio: " + caminho.toAbsolutePath());
                 return;
             }
 
@@ -229,8 +231,11 @@ public class Impressora {
                     + "sE3fHR1D5f1saUwQLPSdIv01NF6Ny7jZwjCwv1uNDgGZONJdlTJ6p0ccqnZvuE70aHOI09elpjEO6Cd+orI7XHHrFCwhFhAcbalc+Z"
                     + "fO5b/+vkyAHS6CYVFCDtYR9Hi5qgdk31v23w==";
 
-            int retorno = ImpressoraDLL.INSTANCE.ImprimeXMLCancelamentoSAT(caminho.toString(), assQRCode, 0);
+            String dadosXml = "path=" + caminho.toAbsolutePath();
+            int retorno = ImpressoraDLL.INSTANCE.ImprimeXMLCancelamentoSAT(dadosXml, assQRCode, 0);
+
             if (retorno == 0) {
+                ImpressoraDLL.INSTANCE.AvancaPapel(3);
                 ImpressoraDLL.INSTANCE.Corte(2);
                 System.out.println("XML de cancelamento SAT impresso com sucesso.");
             } else {
@@ -247,6 +252,8 @@ public class Impressora {
         if (validarConexao()) {
             return;
         }
+
+        Path caminho = Path.of("C:\\Users\\dominic_enzo\\Videos\\impressora\\src\\CANC_SAT.xml");
 
         try {
             int retorno = ImpressoraDLL.INSTANCE.AbreGaveta(1, 5, 10);
